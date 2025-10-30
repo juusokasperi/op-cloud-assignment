@@ -10,21 +10,36 @@ This project consists a simple full-stack web application in TypeScript (React f
 
 ## Prerequisites
 To build and deploy this program you will need;
-- Node.js and npm
-- AWS account (Free Tier is sufficient)
-- AWS CLI installed and configured (`aws configure`)
-- AWS CDK Toolkit installed (`npm install -g aws-cdk`)
-- Docker
+1. **Node.js** and **npm**
+2. **AWS account** (Free Tier is sufficient)
+3. **AWS CLI** installed.
+	- Needs to be **configured** with your credentials by running: `aws configure`
+- **AWS CDK Toolkit** installed.
+```
+npm install -g aws-cdk
+```
+- **Docker**: Installed and running
 
 ## Usage (Build, Deploy and Destroy)
 This project uses a single `package.json` at the root to orchestrate all actions.
 
-1. Build & Deploy (`npm run deploy`)
-	This command will install all dependencies, build the frontend and deploy the entire stack to your AWS account using CDK. During deployment, CDK automatically builds the backend Docker image and will prompt you to approve the creation of IAM roles. You will need to type `y` to approve these changes. This step will take a couple minutes - after the application has been deployed, the terminal will display the URL outputs.
-2. Destroy (`npm run destroy`)
-	Tear down all AWS resources (and avoid further charges)
+### 1. Build & Deploy
+This single command will install all dependencies, build the frontend and deploy the entire stack to your AWS account using CDK. During deployment, CDK automatically builds the backend Docker image and will prompt you to approve the creation of IAM roles. You will need to type `y` to approve these changes. This step will take a couple minutes - after the application has been deployed, the terminal will display the URL outputs.
+```
+npm run deploy
+```
 
-Building and deploying is handled with running `npm run deploy` from the project root. Destroying by `npm run destroy`. There are some basic tests present for the infra that can be run with `npm run infra:test`.
+### 2. Destroy
+Tear down all AWS resources (and avoid further charges)
+```
+npm run destroy
+```
+
+### 3. Run tests
+To run the infrastructure unit tests locally:
+```
+npm run infra:test
+```
 
 ## About the implementation
 
@@ -68,30 +83,13 @@ Building and deploying is handled with running `npm run deploy` from the project
 │   ├── package.json
 │   ├── public
 │   │   └── imgs
-│   │       ├── compressor.png
-│   │       ├── fdf.png
-│   │       ├── ircserv.png
-│   │       ├── jazzcalendar.gif
-│   │       ├── miniRT.png
-│   │       └── minishell.png
 │   ├── src
 │   │   ├── App.tsx
 │   │   ├── assets
-│   │   │   ├── github.svg
-│   │   │   └── linkedin.svg
 │   │   ├── components
 │   │   │   ├── DropDown
-│   │   │   │   ├── DropDown.tsx
-│   │   │   │   ├── index.ts
-│   │   │   │   └── styled.ts
 │   │   │   ├── Header
-│   │   │   │   ├── Header.tsx
-│   │   │   │   ├── index.ts
-│   │   │   │   └── styled.ts
 │   │   │   └── ProjectCard
-│   │   │       ├── ProjectCard.tsx
-│   │   │       ├── index.ts
-│   │   │       └── styled.ts
 │   │   ├── index.css
 │   │   ├── main.tsx
 │   │   ├── styled.d.ts
