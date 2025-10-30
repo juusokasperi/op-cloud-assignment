@@ -4,7 +4,7 @@ This project consists a simple full-stack web application in TypeScript (React f
 - **100% Infrastructure as Code**: All AWS resources are defined in TS using the AWS CDK.
 - **Full-Stack Serverless**: Architecture is fully serverless. It uses S3, CloudFront, Lambda and API Gateway.
 - **Containerized Backend**: The backend is containerized using Docker and runs as a Lambda function.
-- **One-line Deployment**: A single `npm run deploy` command builds the frontend, installs all dependencies, builds the backend Docker image, and deploys the stack.
+- **One-line Deployment**: A single `npm run deploy` command builds the frontend, installs all dependencies, tests the infrastructure, builds the backend Docker image, and deploys the entire stack.
 - **Dynamic API configuration**: The CDK stack automatically injects the API Gateway's URL into a `config.json` file deployed with the frontend. The React app reads this config at runtime, so no manual configuration is needed.
 - **Automated Security**: The backend's CORS policy is automatically configured at deployment. CDK passes CloudFront URL to the Lambda function as an environment variable, which the Fastify app uses to only allow requests from the deployed frontend.
 
@@ -24,13 +24,13 @@ npm install -g aws-cdk
 This project uses a single `package.json` at the root to orchestrate all actions.
 
 ### 1. Build & Deploy
-This single command will install all dependencies, build the frontend and deploy the entire stack to your AWS account using CDK. During deployment, CDK automatically builds the backend Docker image and will prompt you to approve the creation of IAM roles. You will need to type `y` to approve these changes. This step will take a couple minutes - after the application has been deployed, the terminal will display the URL outputs.
+This single command will install all dependencies, build the frontend, test the infrastructure and deploy the entire stack to your AWS account using CDK. During deployment, CDK automatically builds the backend Docker image and will prompt you to approve the creation of IAM roles. You will need to type `y` to approve these changes. This step will take a couple minutes - after the application has been deployed, the terminal will display the URL outputs.
 ```
 npm run deploy
 ```
 
 ### 2. Destroy
-Tear down all AWS resources (and avoid further charges)
+To tear down all AWS resources (and avoid further charges)
 ```
 npm run destroy
 ```
@@ -38,8 +38,10 @@ npm run destroy
 ### 3. Run tests
 To run the infrastructure unit tests locally:
 ```
-npm run infra:test
+npm run test:infra
 ```
+In case of the test pointing out about changes, review them and run `npm run test:infra:update` to update the snapshot.
+
 
 ## About the implementation
 
@@ -57,6 +59,11 @@ npm run infra:test
 - **Backend**: The Dockerized Fastify app is deployed as a **Lambda Function** using a Docker container image.
 - **API**: An **API Gateway (REST API)** with a `/{proxy+}` route points all requests to the Lambda function.
 
+## Non-idealities and Future Improvements
+- **API Security**: Gateway is public and unauthenticated. I would add rate limiting or a request authorizer to protect the API.
+- **Local Dev**: If `config.json` is not provided for the frontend, a hardcoded value `http://localhost:3000` is used. For the backend, if `PORT` and `FRONTEND_URL` values are not passed on as environmental variables, hardcoded values `3000` and `http://localhost:5173` are used.
+- **Database**: The backend serves an array from a static TypeScript file. The next logical step would be to replace that with f.ex. **Amazon DynamoDB**, which would be defined in the CDK stack.
+- **CI/CD Pipeline**: The **npm run deploy** is designed to work for local execution. In production, I would like to integrate this into a CI/CD pipeline (e.g., Github Actions) that runs tests and deploys the changes automatically on every push to the main branch.
 
 ### Project Source Structure
 ```sh

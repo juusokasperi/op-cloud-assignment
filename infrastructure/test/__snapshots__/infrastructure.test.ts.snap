@@ -658,7 +658,7 @@ exports[`InfrastructureStack Tests CloudFormation template matches snapshot 1`] 
         ],
         "Code": {
           "ImageUri": {
-            "Fn::Sub": "\${AWS::AccountId}.dkr.ecr.\${AWS::Region}.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-\${AWS::AccountId}-\${AWS::Region}:b539a5becfb513669217f1a0ad59962f2d3c735f405650dcdd45b00a7ddf6151",
+            "Fn::Sub": "\${AWS::AccountId}.dkr.ecr.\${AWS::Region}.\${AWS::URLSuffix}/cdk-hnb659fds-container-assets-\${AWS::AccountId}-\${AWS::Region}:67b7dde16cc99e2916ecbd045c65f6e90657711fd36069d1450cbe224154fb01",
           },
         },
         "Environment": {
