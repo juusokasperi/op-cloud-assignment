@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "types": ["node"],
+    "sourceMap": true,
+    "isolatedModules": true,
+    "target": "ES2022",
+    "outDir": "./dist",
+  },
+  "include": ["index.ts", "data/*", "utils/*",  "routes/*", "schemas/*", "**/*.d.ts"]
+}

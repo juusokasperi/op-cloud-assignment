@@ -1,0 +1,16 @@
+{
+  "name": "cloud-assignment",
+  "version": "1.0.0",
+  "scripts": {
+    "build:front": "cd frontend && npm install && npm run build",
+    "install:infra": "cd infrastructure && npm install",
+    "test:infra": "cd infrastructure && npm run test",
+    "check:front:build": "echo '>>> Checking frontend/build contents:' && ls -l frontend/build && echo '>>> Check complete.'",
+    "deploy": "npm run build:front && npm run check:front:build && npm run install:infra && cd infrastructure && cdk deploy",
+    "destroy": "cd infrastructure && cdk destroy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
